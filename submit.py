@@ -20,7 +20,7 @@ def main():
 
     # Comprobar que todos los campos necesarios están presentes
     if not all([name, email, resume_link, repository_link, action_run_link]):
-        raise ValueError("Faltan variables de entorno requeridas (NAME, EMAIL, RESUME_LINK, REPOSITORY_LINK, ACTION_RUN_LINK).")
+        raise ValueError("Faltan variables de entorno requeridas (NAME, EMAIL, RESUME_LINK, REPOSITORY_LINK, ACTION_RUN_LINK). Asegúrate de llenar los campos al ejecutar la acción.")
 
     # Formatear el timestamp en ISO 8601 (con milisegundos y 'Z' al final)
     now = datetime.datetime.now(datetime.timezone.utc)

@@ -1,0 +1,37 @@
+name: B12 Application Submission
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Your Full Name'
+        required: true
+      email:
+        description: 'Your Email Address'
+        required: true
+      resume_link:
+        description: 'Link to your Resume, CV, or LinkedIn'
+        required: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run submission script
+        env:
+          NAME: ${{ github.event.inputs.name }}
+          EMAIL: ${{ github.event.inputs.email }}
+          RESUME_LINK: ${{ github.event.inputs.resume_link }}
+          REPOSITORY_LINK: https://github.com/${{ github.repository }}
+          ACTION_RUN_LINK: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          # The secret MUST be configured in your GitHub repository Settings > Secrets and variables > Actions
+          B12_SIGNING_SECRET: ${{ secrets.B12_SIGNING_SECRET }}
+        run: python submit.py
